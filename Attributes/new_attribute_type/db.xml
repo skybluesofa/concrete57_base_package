@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+<table name="atNewAttributeType">
+	<field name="avID" type="I" size="10"><KEY/><DEFAULT value="0"/><UNSIGNED/></field>
+	<field name="value" type="C" size="255"></field>
+</table>
+</schema>
