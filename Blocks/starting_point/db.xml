@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btStartingPoint">
+		<field name="bID" type="I">
+			<key /><unsigned />
+		</field>
+		<field name="content" type="X"></field>
+		</field>
+	</table>
+</schema>

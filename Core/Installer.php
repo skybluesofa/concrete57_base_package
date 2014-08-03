@@ -6,6 +6,7 @@ use Concrete\Core\Foundation\Object;
 use Concrete\Core\Attribute\Key\Category as AttributeKeyCategory;
 use Concrete\Core\Attribute\Set as AttributeSet;
 use Concrete\Core\Attribute\Type as AttributeType;
+use Concrete\Core\Block\BlockType\BlockType;
 use Concrete\Core\Page\Single as SinglePage;
 use Concrete\Core\Page\Page as Page;
 use Concrete\Core\Job\Job;
@@ -71,6 +72,9 @@ class Installer
 		)
 	    )
 	);
+	protected static $blocks = array(
+	    array('path' => '/dashboard/package_starting_point', 'name' => 'Package Starting Point', 'description' => 'This is a starting point for a new concrete5.7 package.')
+	);
 	protected static $pages = array(
 	    array('path' => '/dashboard/package_starting_point', 'name' => 'Package Starting Point', 'description' => 'This is a starting point for a new concrete5.7 package.')
 	);
@@ -111,6 +115,7 @@ class Installer
 		self::associateAttributesTypesWithCategories($pkg);
 		self::installCategoryAttributeSets($pkg);
 		self::installCategoryAttributes($pkg);
+		self::installBlocks($pkg);
 		self::installPages($pkg);
 		self::installSettingsData($pkg);
 		self::installJobs($pkg);
@@ -123,6 +128,7 @@ class Installer
 		self::associateAttributesTypesWithCategories($pkg);
 		self::installCategoryAttributeSets($pkg);
 		self::installCategoryAttributes($pkg);
+		self::installBlocks($pkg);
 		self::installPages($pkg);
 		self::installSettingsData($pkg);
 		self::installJobs($pkg);
@@ -224,6 +230,16 @@ class Installer
 					if ($categoryAttributeSet) {
 						$categoryAttribute->setAttributeSet($categoryAttributeSet);
 					}
+				}
+			}
+		}
+	}
+
+	private function installBlocks($pkg) {
+		if (isset(self::$blocks) && is_array(self::$blocks)) {
+			foreach (self::$blocks as $block) {
+				if (!BlockType::getByHandle($block)) {
+					BlockType::installBlockTypeFromPackage($block, $pkg);
 				}
 			}
 		}
